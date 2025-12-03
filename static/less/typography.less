@@ -1,0 +1,84 @@
+/*  Guidlines for font-size range
+    Formula: font-size: calc([minimum size] + ([maximum size] - [minimum size]) * ((100vw - [minimum viewport width]) / ([maximum viewport width] - [minimum viewport width])));
+    Example: font-size: calc(70px + (84 - 70) * ((100vw - 300px) / (1600 - 300)));
+
+    Usage: .font-size(48,28);
+*/
+
+.font-size(@maxsize, @minsize){    
+    font-size: ~"calc(@{minsize}px + ( @{maxsize} - @{minsize} ) * ((100vw - 370px) / (1640 - 370)))";  
+    @media @min1920{
+        font-size: ~"@{maxsize}px";
+    }
+}
+
+
+.h1,.h2,.h3,.h4,.h5,.h6, h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-primary);
+    color: var(--pri-500);
+    .font-size(80,48);
+    line-height: var(--heading-line-height);
+    font-weight: 700;
+}
+
+.h2, h2 {
+    .font-size(60,40);
+}
+
+
+.h3, h3 {
+   .font-size(48,20);
+}
+
+.h4, h4 {
+    .font-size(30, 20);
+}
+
+.h5,.h6, h5, h6 {
+    .font-size(20, 16);
+}
+
+p,li,a,td,span, legend, label, .wpcf7-response-output {
+    font-family: var(--font-primary);
+    color: var(--black);
+    line-height: var(--body-line-height);
+    font-weight: 400;
+    .font-size(20, 16);
+}
+
+a, button, .wp-block-button__link {
+    transition: .3s;
+    text-decoration: none;
+    &:hover {
+       text-decoration: underline;
+    }
+}
+
+// mark{
+//     color: var(--pri-500);
+//     background-color: var(--white);
+//     transition: all .3s ease-in-out;
+// }
+
+.letter-spacing(@mb, @dk){
+    letter-spacing: ~"@{mb}px";
+    @media @min768{
+        letter-spacing: ~"@{dk}px";
+    }
+}
+.p-content {
+    p:not(:first-child) {
+      margin-top: var(--space-12);
+  
+      @media @min992 {
+        margin-top: var(--space-sm);
+      }
+    }
+  }
+
+[data-aos= "fadeIn"]{
+    opacity: 0;  
+}
+&.aos-animate{
+    opacity: 1;
+}

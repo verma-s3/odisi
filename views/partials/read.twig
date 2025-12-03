@@ -1,0 +1,13 @@
+{# //add this to required file
+
+         ---------- Word count / read time -----
+        {% set wordCount = blog.content|split(' ')|length %}
+        {% include 'partials/read.twig' %}
+
+ #}
+
+{% set readTime = (wordCount / 200)|number_format(0) %}
+<div>
+  {# <span class="word-count">{{ wordCount }} words</span> |  #}
+  <span class="read-time">Read time: {{ readTime }} min</span>
+</div>

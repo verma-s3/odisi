@@ -1,0 +1,13 @@
+{% import _self as components %}
+
+{% macro button(props) %}
+    <button id="{{ props.id }}" class={{ props.className }}>{{ props.content }}</button>
+{% endmacro %}
+
+{% macro link(props) %}
+    <a class="{{ props.className }}" href="{{ props.href }}">{{ props.content }}</a>
+{% endmacro %}
+
+{% macro email(props) %}
+    {{ fn('do_shortcode', '[email-obfuscate email="' ~ props.address ~ '" link_title="' ~ props.title ~ '"]') }}
+{% endmacro %}

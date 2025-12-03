@@ -1,0 +1,110 @@
+/*
+======================================================================
+VARIABLES
+======================================================================
+*/
+@min600: ~"screen and (min-width: 600px)";
+@min768: ~"screen and (min-width: 768px)";
+@min992: ~"screen and (min-width: 992px)";
+@min1024: ~"screen and (min-width: 1024px)";
+@min1100: ~"screen and (min-width: 1100px)";
+@min1200: ~"screen and (min-width: 1200px)";
+@min1280: ~"screen and (min-width: 1280px)";
+@min1440: ~"screen and (min-width: 1440px)";
+@min1500: ~"screen and (min-width: 1500px)";
+@min1640: ~"screen and (min-width: 1640px)";
+@min1700: ~"screen and (min-width: 1700px)";
+@min1800: ~"screen and (min-width: 1800px)";
+@min1920: ~"screen and (min-width: 1920px)";
+@min2560: ~"screen and (min-width: 2560px)";
+
+@max500: ~"screen and (max-width: 501px)";
+@max768: ~"screen and (max-width: 767px)";
+@max992: ~"screen and (max-width: 991px)";
+@max1024: ~"screen and (max-width: 1023px)";
+
+@images: "/wp-content/themes/azidrilling/static/images"; //change theme name accordingly.
+//use this for background-image
+//background-image: url("@{images}/maximize-icon.svg");
+
+
+.grad-bg {
+    /* Permalink - use to edit and share this gradient: https://colorzilla.com/gradient-editor/#000000+0,000000+100&0.55+0,0.55+100;Neutral+Density */
+    background: -moz-linear-gradient(top, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.55) 100%);
+    /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.55) 100%);
+    /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(0, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.55) 100%);
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#8c000000', endColorstr='#8c000000', GradientType=0);
+    /* IE6-9 */
+}
+
+:root {
+    //spacing
+    --space-unit: 16px;
+    --space-xxs: calc(0.25 * var(--space-unit)); // 4px
+    --space-xs: calc(0.5 * var(--space-unit)); // 8px
+    --space-sm: calc(1 * var(--space-unit)); // 16px
+    --space-md: calc(2 * var(--space-unit)); // 32px
+    --space-lg: calc(4 * var(--space-unit)); // 64px
+    --space-xl: calc(8 * var(--space-unit)); // 128px
+    --space-xxl: calc(16 * var(--space-unit)); // 256px if 200px then 12.5
+
+    //other extra spaces
+    --space-6: calc(0.375 * var(--space-unit)); //6px
+    --space-12: calc(0.75 * var(--space-unit)); //12px
+    --space-20: calc(1.25 * var(--space-unit)); //20px
+    --space-24: calc(1.5 * var(--space-unit)); //24px
+    --space-40: calc(2.5 * var(--space-unit)); //40px
+    --space-48: calc(3 * var(--space-unit)); //48px
+    --space-80: calc(5 * var(--space-unit)); //80px
+    --space-96: calc(6 * var(--space-unit)); //96px
+
+    //color-theory
+    --pri-100: #34768C;
+    --pri-200: #47A2C2;
+    --pri-300: #5CD1FB;
+    --pri-400: #68D9FB;
+    --pri-500: #81E3FC;
+
+    --sec-100: #CCCCCC;
+    --sec-200: #D9D9D9;
+    --sec-300: #E6E6E6;
+    --sec-400: #F2F2F2;
+    --sec-500: #FFFFFF;
+
+    --ter-100: #000000;
+    --ter-200: #333333;
+    --ter-300: #4D4D4D;
+    --ter-400: #666666;
+    --ter-500: #808080;
+
+    --neu-100: #2E2B28;
+    --neu-200: #757677;
+    --neu-300: #A7A8AA;
+    --neu-400: #DCDCDD;
+    --neu-500: #EDEEEE;
+
+    --white: #fff;
+    --black: #000;
+
+    //font
+    --font-primary: "Lexend", sans-serif;
+    --font-secondary: 'gravesend-sans', sans-serif;
+
+    //line-height
+    --heading-line-height: 1.1;
+    --body-line-height: 140%;
+
+    //content
+    --content-width: 1640px;
+
+    //line-spacing
+    --body-line-spacing: calc(1.125 * var(--space-unit));
+
+    // // - border-radius
+    // --border-radius-sm: 2px;
+    // --border-radius-lg: 4px;
+    // --border-radius-full: 9999px;
+}

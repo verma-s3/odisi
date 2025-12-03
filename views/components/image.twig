@@ -1,0 +1,29 @@
+{% import _self as components %}
+
+{% macro imageComp(props) %}
+    {% if props.width is empty %}
+        <img class="{{ props.className }}" width="100%" src="{{ props.src }}" alt="{{ props.alt }}">
+    {% else %}
+        <img class="{{ props.className }}" width="{{ props.width }}" src="{{ props.src }}" alt="{{ props.alt }}">
+    {% endif %}
+{% endmacro %}
+
+{% macro dynamic(props) %}
+    {% if props.width is empty %}
+        <img class="{{ props.className }}" width="100%" src="{{ Image(props.src).src(props.size) }}" alt="{{ Image(props.alt).alt }}">
+    {% else %}
+        <img class="{{ props.className }}" width="{{ props.width }}" src="{{ Image(props.src).src(props.size) }}" alt="{{ Image(props.alt).alt }}">
+    {% endif %}
+{% endmacro %}
+
+{% macro social(props) %}
+    {% if props.width is empty %}
+        <a href="{{ props.link }}" title="{{ props.title }}" target="_blank" rel="noopener noreferrer">
+            <img class="{{ props.className }}" width="100%" src="{{ props.src }}" alt="{{ props.alt }}">
+        </a>
+    {% else %}
+        <a href="{{ props.link }}" title="{{ props.title }}" target="_blank" rel="noopener noreferrer">
+            <img class="{{ props.className }}" width="{{ props.width }}" src="{{ props.src }}" alt="{{ props.alt }}">
+        </a>
+    {% endif %}
+{% endmacro %}

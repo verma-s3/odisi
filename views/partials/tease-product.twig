@@ -1,0 +1,28 @@
+{# <article {{ fn('post_class', ['$classes', 'entry'] ) }}>
+
+    {{ fn('timber_set_product', post) }}
+
+    <a class="media" href="{{ post.link }}">
+
+        {% if post.thumbnail %}
+            <img src="{{ post.thumbnail.src('small-product') }}" />
+        {% endif %}
+
+        <div class="media-content">
+
+            {% do action('woocommerce_before_shop_loop_item_title') %}
+
+            {% if post.title %}
+                <h3 class="entry-title">{{ post.title }}</h3>
+            {% else %}
+                <h3 class="entry-title">{{ fn('the_title') }}</h3>
+            {% endif %}
+
+            {% do action( 'woocommerce_after_shop_loop_item_title' ) %}
+            {% do action( 'woocommerce_after_shop_loop_item' ) %}
+
+        </div>
+
+    </a>
+
+</article> #}

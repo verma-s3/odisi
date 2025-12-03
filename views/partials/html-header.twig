@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+    <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7" {{ site.language_attributes }}> <![endif]-->
+    <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8" {{ site.language_attributes }}> <![endif]-->
+    <!--[if IE 8]>         <html class="no-js lt-ie9" {{ site.language_attributes }}> <![endif]-->
+    <!--[if gt IE 8]>      <html class="no-js" {{ site.language_attributes }}> <!<![endif]-->    
+    <!-- Coded by Sonia Verma -->
+    <html {{ site.language_attributes }}>
+        <head>
+            <meta charset="{{ site.charset}}" />
+            <meta name="description" content="{{ site.description}}">
+            <link rel="stylesheet" href="{{ site.theme.link}}/style.css" type="text/css" media="screen" />
+            {# <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" /> #}
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta name="viewport" content="width=device-width, initial-scale=1">
+            <link rel="author" href="{{ site.theme.link}}/humans.txt" />
+            <link rel="pingback" href="{{ site.pingback_url}}" />
+            <link rel="profile" href="http://gmpg.org/xfn/11">
+            {# <!-- Add the slick-theme.css if you want default styling -->
+            <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.css"/>
+            <!-- Add the slick-theme.css if you want default styling -->
+            <link rel="stylesheet" type="text/css" href="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick-theme.css"/> #}
+             {# <!-- jQuery 1.8 or later, 33 KB --> // uncomment it for fotorama and fancybox
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> #}
+            {# <!-- Fotorama from CDNJS, 19 KB -->
+            <link  href="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.css" rel="stylesheet">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/fotorama/4.6.4/fotorama.js"></script> #}
+            {# <!-- Fancybox from CDNJS -->
+            <link  href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css" rel="stylesheet">
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script> #}
+            {# <!-- AOS Library -->
+            <script src="https://unpkg.com/aos@next/dist/aos.js"></script>	
+	        <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" /> #}
+            {{function('wp_head')}}

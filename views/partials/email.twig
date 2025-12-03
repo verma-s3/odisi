@@ -1,0 +1,6 @@
+{# add this code to your website
+    {% set myEmail = options.email %}
+    {% include 'partials/email.twig' %}
+ #}
+
+<a href="mailto:{{myEmail}}" class="email" rel="noopener noreferrer" aria-label="email">{{myEmail}}</a>

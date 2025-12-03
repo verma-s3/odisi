@@ -1,0 +1,17 @@
+{% import './components/image.twig' as Image %}
+
+{% if not fn('is_page',"10") %}
+    <div class="hero">
+        {% if fn('is_page','13') %}
+            {# <img class="img-responsive" src="{{Image(field.meta('hero_banner_image')).src}}" alt="{{Image(field.meta('about_image')).alt}}" /> #}
+        {# {% elseif fn('is_singular','products') %} #}
+            <p></p>
+        {% endif %}
+    </div>
+{% endif %}
+{# if the page is home page #}
+{% if fn('is_page',"10") %}
+    <div class="hero">
+         <img class="img-responsive" src="{{Image(field.meta('hero_banner')).src}}" alt="{{Image(field.meta('hero_banner')).alt}}" />
+    </div>
+{% endif %}

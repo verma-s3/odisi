@@ -1,0 +1,87 @@
+{# Imports #}
+{% import 'components/image.twig' as Logo %}
+
+{# Blocks & Includes #}
+{% block html_head_container %}
+	{% include 'partials/html-header.twig' %}
+	{% block head %}{% endblock %}
+</head>{% endblock %}<body class="{{body_class}}" data-template="base.twig">
+<a class="skip-link screen-reader-text" href="#content">{{ _e( 'Skip to content')}}</a>
+{# <a href="javascript:" id="return-to-top"><i class="glyphicon glyphicon-chevron-up" aria-hidden="true"></i></a> #}
+
+{% block header %}
+	<header class="header padding-lr">
+		<div class="wrapper container">
+			<a
+				class="site-logo" href="{{site.url}}" rel="home" aria-label="site logo">{# {{source (directory ~ '/static/images/SCF_Logo_Colored.svg') }} #}
+			</a>
+
+			<nav id="site-navigation" class="nav-main" role="navigation">
+				{% include "menu.twig" with{'items':menu.get_items} %}
+			</nav>
+			<div class="button_container" id="toggle" data-aos="fade-zoom-in" data-aos-easing="ease-in-back">
+				<span class="top"></span>
+				<span class="middle"></span>
+				<span class="bottom"></span>
+				<span class="text"></span>
+			</div>
+		</div>
+	</header>
+{% endblock %}
+
+{# Include Hero #}
+{% include 'partials/hero.twig' %}
+
+
+<section id="content" role="main" class="content-wrapper">
+	<div class="wrapper{{sidebar_class}}"> {% block content %}{% endblock %}
+		</div>
+
+		{# {% if sidebar %}
+						                <aside class="layout-sidebar">{{sidebar}}
+						                </aside>
+						            {% endif %} #}
+
+	</section>
+
+
+	<div class="overlay padding-lr" id="overlay">
+		<div class="wrapper container">
+			<a class="site-logo" href="{{site.url}}" rel="home" aria-label="{{site.name}}">
+				{# {{source (directory ~ '/images/logo/procast-logo.svg') }} #}
+			</a>
+			<div class="overlay-nav-main">
+				<nav id="site-navigation3" class="overlay-menu" role="navigation">
+					{% include "menu.twig" with{'items':menu.get_items} %}
+				</nav>
+				{# <div class="contact-info">
+					<a href="{{options.get_directions}}">
+						{{source (directory ~ '/static/images/location-icon.svg') }}
+						{{options.address.street_address}},<br/>
+						{{options.address.city}},
+						{{options.address.province}}
+						{{options.address.postal_code}}
+					</a>
+					<a href="tel:{{ options.phone_number }}">
+						{{source (directory ~ '/static/images/phone-icon.svg') }}
+						{% set phoneNumber = options.phone_number %}{% include 'partials/phone-number.twig' %}
+					</a>
+					<p>
+						{{source (directory ~ '/static/images/email-icon.svg') }}
+						{% set myEmail = options.email %}
+						{% include 'partials/email.twig' %}
+					</p>
+				</div> #}
+			</div>
+		</div>
+	</div>
+
+	{% block footer %}
+		<footer id="footer">
+			{% include 'partials/footer.twig' %}
+		</footer>
+		{{ function('wp_footer')}}
+	{% endblock %}
+	<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+</body></html>
