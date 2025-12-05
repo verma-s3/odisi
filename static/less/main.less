@@ -192,7 +192,7 @@
         }
 
         h3 {
-            color: var(--pri-500);
+            color: var(--sec-100);
         }
 
     }
@@ -571,21 +571,71 @@ div {
 // }
 
 .custom-btn {
-    background-color: var(--pri-500);
-    border: 2px solid var(--pri-500);
-    padding: 8px 0px;
-    font-weight: 300;
-    text-decoration: none;
+    background-color: var(--ter-300);
+    border: 2px solid var(--ter-300);
+    padding: 9px 22px;
+    font-weight: 500;
+    text-decoration: none !important;
     display: inline-block;
-    font-family: var(--font-primary);
-    font-size: 20px;
-    // border-radius: 50px;
-    .center();
+    font-family: var(--font-secondary);
+    font-size: 16px;
+    border-radius: 50px;
+    color: var(--pri-100);
+    transition: all .35s ease;
+    line-height: normal;
 
     &:hover {
         background-color: transparent;
-        color: var(--pri-500);
+        color: var(--ter-300);
+        background-color: var(--pri-100);
+        border-color: var(--pri-100);
         opacity: 1;
+    }
+}
+
+.light-btn {
+    .custom-btn ();
+    background-color: var(--pri-300);
+    border: 2px solid var(--pri-300);
+    color: var(--white);
+
+    &:hover {
+        color: var(--white);
+        background-color: var(--pri-100);
+        border-color: var(--pri-100);
+    }
+}
+
+.light-arrow-btn {
+    .light-btn();
+    .display-flex(inline-flex, var(--space-40), row, center);
+}
+
+.green-arrow-btn {
+    .light-arrow-btn();
+    background-color: var(--sec-300);
+    border: 2px solid var(--sec-300);
+    color: var(--sec-100);
+
+    svg {
+        transition: all .35s ease;
+
+        path {
+            transition: all .35s ease;
+            fill: var(--sec-100);
+        }
+    }
+
+    &:hover {
+        color: var(--sec-300);
+        background-color: var(--sec-100);
+        border-color: var(--sec-100);
+
+        svg {
+            path {
+                fill: var(--sec-300);
+            }
+        }
     }
 }
 

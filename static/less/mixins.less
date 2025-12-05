@@ -41,7 +41,11 @@
 // paddings
 // ========================================================================== //
 .padding-lr {
-  padding-inline: 40px;
+  padding-inline: 20px;
+
+  @media @min768 {
+    padding-inline: 40px;
+  }
 
   @media @min1024 {
     padding-inline: 80px;
