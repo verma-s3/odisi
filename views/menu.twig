@@ -1,11 +1,17 @@
 {% if menu and items %}
 	<ul>
 		{% for item in items %}
-			<li class="{{ item.classes | join(' ')}}">
+			<li
+				class="{{ item.classes | join(' ')}}">
 				{# <a target="{{ item.target}}" href="{{ item.link}}">{{ item.title}}</a> #}
-				<a target="_self" href="{{ item.link}}"  aria-label="link to {{item.title}}">{{ item.title}}</a>
+				<a target="_self" href="{{ item.link}}" aria-label="link to {{item.title}}">{{ item.title}}</a>
 				{% include "menu.twig" with{'items':item.children} %}
 			</li>
 		{% endfor %}
+		<li>
+			<a class="light-btn scroll-to-contact" data-hover="Contact Us" href="javscript:void(0)">
+				<span>Contact Us</span>
+			</a>
+		</li>
 	</ul>
 {% endif %}

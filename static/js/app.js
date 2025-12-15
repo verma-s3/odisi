@@ -1,12 +1,18 @@
+import { smoother } from './gsap.js';
+
 jQuery(document).ready(function ($) {
-  // fixedHeaderOnScroll();
-  $('#toggle').click(function () {
+  fixedHeaderOnScroll();
+  $('#toggle').click(function (e) {
+    e.preventDefault();
+    e.stopPropagation();
     $(this).toggleClass('active');
     $('#overlay').toggleClass('open');
     $('html').toggleClass('hidden');
-    // if ($('header').hasClass('fixed-header')) {
-    //   $('header').toggleClass('overlay-header');
-    // }
+    if ($(this).hasClass('active')) {
+      smoother.paused(true);
+    } else {
+      smoother.paused(false);
+    }
   });
 
 
@@ -15,43 +21,20 @@ jQuery(document).ready(function ($) {
     $('#toggle').click();
   });
 
-  // AOS.init({
-  //   startEvent: 'DOMContentLoaded',
-  //   duration: 1000,
-  //   easing: 'ease-in-quad',
-  //   disable: 'mobile',
-  //   once: true
-  // });
+  //*** Fixed header ***
+  function fixedHeaderOnScroll() {
+    const scrollTop = $(window).scrollTop();
 
-  // AOS.refresh();
+    if (scrollTop > 10) {
+      $('header').addClass('fixed-header');
+    } else {
+      $('header').removeClass('fixed-header');
+    }
+  }
 
-  //     AOS.init({
-  //   startEvent: 'DOMContentLoaded',
-  //   duration: 800,
-  //   easing: 'ease-in-quad',
-  //   disable: 'mobile',
-  //   once: true
-  // });
+  $(window).on('load scroll resize', fixedHeaderOnScroll);
 
-  // AOS.refresh();
-
-  // window.addEventListener('pageshow', function () {
-  //   setTimeout(() => {
-  //     window.scrollBy(0, 1); // Nudge scroll to trigger observers
-  //     window.scrollBy(0, -1);
-  //     AOS.refreshHard();
-  //   }, 50);
-  // });
-
-  // $(window).one('scroll', function() {
-  //   AOS.refresh();
-  // });
-
-  // if ('scrollRestoration' in history) {
-  //   history.scrollRestoration = 'manual';
-  // }
-
-
+  /******************************************************/
   // //*** Smooth Scroll ***
   window.addEventListener('load', function () {
     const hash = window.location.hash;
@@ -64,7 +47,7 @@ jQuery(document).ready(function ($) {
       }
     }
   });
-
+  /******************************************************/
   document.querySelectorAll('a[href^="#"]').forEach(link => {
     link.addEventListener('click', function (e) {
       const targetId = this.getAttribute('href');
@@ -76,41 +59,6 @@ jQuery(document).ready(function ($) {
       }
     });
   });
-
-
-  //*** Fixed header ***
-  // function fixedHeaderOnScroll(){
-  //   // var heroHeight = window.innerHeight; //use me if want to display fixed header according to innerHeight.
-  //   // if ($(this).scrollTop() >= heroHeight) {// 
-  //   if ($(this).scrollTop() >= 0) {        // If page is scrolled 
-  //       $('header').addClass('fixed-header');    // Fade in the arrow
-  //   } else {
-  //       $('header').removeClass('fixed-header');   // Else fade out the arrow
-  //   }
-  // }
-
-  /************************************************
-  uncomment follwoing code if window.innerheight is
-  included in fixedHeaderOnScroll function.  
-  *************************************************/
-
-  // $(window).on('load scroll resize', function () {
-  //   fixedHeaderOnScroll();
-  // });
-
-  // $(window).on('load', function () {
-  //   fixedHeaderOnScroll();
-  // });
-
-  // $(window).scroll(function () {
-  //   fixedHeaderOnScroll();
-  // });
-
-
-  // $(window).resize(function() {
-  //   fixedHeaderOnScroll();
-  // });
-
 
   //*** Scroll to Top *** use with less *** use with html ***
   $(window).scroll(function () {
@@ -126,67 +74,274 @@ jQuery(document).ready(function ($) {
       scrollTop: 0                       // Scroll to top of body
     }, 500);
   });//End Scroll to Top
+  /*******************READ MORE BTN************************/
+  $('.read-more-content').hide();
+  $('.read-btn').click(function (e) {
+    e.preventDefault();
+    $('.read-more-content').slideToggle();
+    if ($(this).text() == "Read More") {
+      $(this).text("Read Less");
+    } else {
+      $(this).text("Read More");
+    }
+  });
 
 
-
-  //*** Flexslider ***
-  // var $flexslider = $('.flex-slider');
-  // $flexslider.flexslider({
-  //   smoothHeight: false,
-  //   slideshow: true,
-  //   arrows: false,
-  //   dots: true,
-  //   controlNav: true,
-  //   directionNav: true,
-  //   slideshowSpeed: 5000,
-  //   useCSS: false /* Chrome fix*/
-  // });// End Flexslider
-
-
-
+  /******************************************************/
   //Slick SLider
-  // $('.slider').slick({
-  //   dots: false,
-  //   centerMode: true,
-  //   infinite: true,
-  //   arrows: true,
-  //   slidesToShow: 4.67,
-  //   responsive: [
-  //     {
-  //       breakpoint: 1500,
-  //       settings: {
-  //         slidesToShow: 3,
-  //         slidesToScroll: 3,
-  //         infinite: true,
-  //       }
-  //     },
-  //     {
-  //       breakpoint: 1024,
-  //       settings: {
-  //         slidesToShow: 2,
-  //         slidesToScroll: 2,
-  //         infinite: true,
-  //       }
-  //     },
-  //     {
-  //       breakpoint: 600,
-  //       settings: {
-  //         slidesToShow: 2,
-  //         slidesToScroll: 2
-  //       }
-  //     },
-  //     {
-  //       breakpoint: 480,
-  //       settings: {
-  //         slidesToShow: 1,
-  //         slidesToScroll: 1
-  //       }
-  //     }
-  //     // You can unslick at a given breakpoint now by adding:
-  //     // settings: "unslick"
-  //     // instead of a settings object
-  //   ]
-  // });
+  const $listslider = $('.list-slider');
+  const $insightslider = $('.insight-slider');
+
+  function listSlider($slider) {
+    if (!$slider.length) return;
+
+    const winWidth = window.innerWidth;
+    const isInitialized = $slider.hasClass('slick-initialized');
+
+    if (winWidth >= 1200) {
+      if (isInitialized) {
+        $slider.slick('unslick');
+      }
+    }
+
+    else {
+      if (!isInitialized) {
+        $slider.slick({
+          dots: true,
+          centerMode: false,
+          infinite: false,
+          arrows: false,
+          slidesToShow: 4,
+          slidesToScroll: 1,
+          speed: 600,
+          cssEase: 'linear',
+          responsive: [
+            {
+              breakpoint: 1200,
+              settings: {
+                slidesToShow: 3.67,
+              }
+            },
+            {
+              breakpoint: 992,
+              settings: {
+                slidesToShow: 2.67,
+              }
+            },
+            {
+              breakpoint: 600,
+              settings: {
+                slidesToShow: 1.37,
+              }
+            }
+          ]
+        });
+      }
+    }
+  }
+
+  function insightSlider($slider) {
+    if (!$slider.length) return;
+
+    const winWidth = window.innerWidth;
+    const isInitialized = $slider.hasClass('slick-initialized');
+
+    if (winWidth >= 1024) {
+      if (isInitialized) {
+        $slider.slick('unslick');
+      }
+    }
+
+    else {
+      if (!isInitialized) {
+        $slider.slick({
+          dots: true,
+          centerMode: false,
+          infinite: false,
+          arrows: false,
+          slidesToShow: 2.67,
+          slidesToScroll: 1,
+          speed: 600,
+          cssEase: 'linear',
+          responsive: [
+            {
+              breakpoint: 600,
+              settings: {
+                slidesToShow: 1.37,
+              }
+            }
+          ]
+        });
+      }
+    }
+  }
+
+
+  listSlider($listslider);
+  insightSlider($insightslider);
+
+  $(window).on('resize', function () {
+    listSlider($listslider);
+    insightSlider($insightslider);
+  });
+
+  /******************************************************/
+
+  $('.testi-slider').slick({
+    dots: true,
+    centerMode: false,
+    infinite: false,
+    arrows: false,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    speed: 600,
+    speed: 500,
+    fade: true,
+    cssEase: 'linear',
+    autoplay: true,
+    autoplaySpeed: 2000,
+  });
+  /******************************************************/
+  // Filters for TEAM
+  $('.filter').click(function () {
+    $('.filter').removeClass('selected');
+    $(this).addClass('selected');
+  });
+  // Filter results .
+  if (document.body.classList.contains('page-template-page-about-us')) {
+
+    var teamType = document.querySelectorAll('.filter');
+    var activeType = teamType[0].rel;
+
+    $('.filter-results .img-wrapper').hide().filter('[data-src="' + activeType + '"]').show();
+    $('.filter').click(function () {
+      if ($(this).attr('rel')) {
+        $('.filter-results .img-wrapper').hide().filter('[data-src="' + $(this).attr('rel') + '"]').show();
+      } else {
+        $('.filter-results .img-wrapper').hide().filter('[data-src="' + activeType + '"]').show();
+      }
+      return false;
+    });
+    /******************************************************/
+
+    $('.spotlight-teams .filter-results .team-flex').click(function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+
+      const $overlay = $(this).next('.team-overlay');
+      const scrollTop = smoother.scrollTop(); // get virtual scroll position
+
+      // Set top of modal to current virtual scroll so it appears in viewport
+      $overlay.css('top', scrollTop + 'px').addClass('open');
+      $('html').addClass('hidden');
+
+      // Pause scroll
+      smoother.paused(true);
+    });
+
+    $('.close').click(function () {
+      $('.team-overlay').removeClass('open');
+      $('html').removeClass('hidden');
+      smoother.paused(false);
+    });
+
+    $(document).on('click', '.team-overlay', function (e) {
+      const modal = $(this).find('.team-modal');
+      if (!modal.is(e.target) && modal.has(e.target).length === 0) {
+        $(this).removeClass('open');
+        $('html').removeClass('hidden');
+        smoother.paused(false);
+      }
+    });
+  }
+  /******************************************************/
+
+  /******************************************************/
+
+  const $contactSection = $("#contact");
+  const $openBtn = $(".openModal");
+  const $formModal = $contactSection.find(".form-modal");
+  let originalFormHTML = null;
+
+  if ($formModal.length) {
+    originalFormHTML = $formModal.html();
+  }
+
+  // OPEN form
+  $openBtn.on("click", function (e) {
+    e.stopPropagation(); // prevent immediate close
+    $contactSection.addClass("form-active");
+    $("html").addClass("hidden");
+  });
+
+  // CLOSE on outside click
+  $contactSection.on("click", function (e) {
+
+    // ignore clicks on button or inside modal
+    if (
+      $(e.target).closest(".form-modal").length ||
+      $(e.target).closest(".openModal").length
+    ) {
+      return;
+    }
+
+    closeFormOverlay();
+  });
+
+  // prevent clicks inside modal
+  $formModal.on("click", function (e) {
+    e.stopPropagation();
+  });
+
+  // Gravity Forms confirmation reset
+  $(document).on("gform_confirmation_loaded", function () {
+    setTimeout(function () {
+      if (originalFormHTML) {
+        $formModal.html(originalFormHTML);
+        closeFormOverlay();
+      }
+    }, 5000);
+  });
+
+  function closeFormOverlay() {
+    $contactSection.removeClass("form-active");
+    $("html").removeClass("hidden");
+  }
+
+
+
+
+
+  /******************************************************/
+  document.addEventListener("DOMContentLoaded", () => {
+    const hash = window.location.hash;
+
+    if (hash === "#contact") {
+      const contact = document.querySelector("#contact");
+      if (!contact) return;
+
+      const smoother = ScrollSmoother.get();
+
+      // Wait a little for smoother to be ready
+      setTimeout(() => {
+
+        smoother.scrollTo(contact, true, "top top");
+
+
+        setTimeout(() => {
+          smoother.resize();           // Recalculates height
+          ScrollTrigger.refresh();     // Refreshes triggers and layout
+        }, 300);
+
+        history.replaceState(null, null, window.location.pathname);
+      }, 300);
+    }
+  });
+
+
+
 
 
 });
+
+

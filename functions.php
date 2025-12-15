@@ -8,35 +8,6 @@
  * @since   Timber 0.1
  */
 
-/**
- * If you are installing Timber as a Composer dependency in your theme, you'll need this block
- * to load your dependencies and initialize Timber. If you are using Timber via the WordPress.org
- * plug-in, you can safely delete this block.
- */
-
-/*******************************
- * WOOCOMMERCE FUNCTIONS
- ******************************/
-
-//Declare Theme as WooCommerce supported
-// function theme_add_woocommerce_support() {
-// 	add_theme_support( 'woocommerce' );
-// 	add_theme_support( 'wc-product-gallery-zoom' );
-// 	add_theme_support( 'wc-product-gallery-lightbox' );
-// 	add_theme_support( 'wc-product-gallery-slider' );
-// }
-
-// add_action( 'after_setup_theme', 'theme_add_woocommerce_support' );
-
-// Set woocommerce prodcuct
-// function timber_set_product( $post ) {
-//     global $product;
-
-//     if ( is_woocommerce() ) {
-//         $product = wc_get_product( $post->ID );
-//     }
-// }
-
 $composer_autoload = __DIR__ . '/vendor/autoload.php';
 if ( file_exists( $composer_autoload ) ) {
 	require_once $composer_autoload;
@@ -111,9 +82,43 @@ class StarterSite extends Timber\Site
 		add_action('init', array( $this, 'remove_comment_support'), 100);
 		add_action( 'wp_before_admin_bar_render', array( $this, 'mytheme_admin_bar_render') );
 		add_action( 'add_attachment', array( $this, 'my_set_image_meta_upon_image_upload') );
-
+		add_filter('gform_submit_button', array($this, 'gravityFormButton'), 10, 2) ;
 		parent::__construct();
 	}
+
+	public function gravityFormButton($button, $form) {
+		if (empty($button)) {
+			return $button;
+		}
+	
+		$fragment = WP_HTML_Processor::create_fragment($button);
+		$fragment->next_token();
+	
+		$attributes = array('id', 'type', 'class', 'onclick');
+		$data_attributes = $fragment->get_attribute_names_with_prefix('data-');
+	
+		if (!empty($data_attributes)) {
+			$attributes = array_merge($attributes, $data_attributes);
+		}
+	
+		$new_attributes = array();
+		foreach ($attributes as $attribute) {
+			$value = $fragment->get_attribute($attribute);
+			if (!empty($value)) {
+				$new_attributes[] = sprintf('%s="%s"', $attribute, esc_attr($value));
+			}
+		}
+	
+		$label = esc_html($fragment->get_attribute('value'));
+	
+		return sprintf(
+			'<button class="light-btn" data-hover="%s" %s><span>%s</span></button>',
+			$label,
+			implode(' ', $new_attributes),
+			$label
+		);
+	}
+	
 
 	/**
 	 * My custom Twig functionality.
@@ -129,27 +134,7 @@ class StarterSite extends Timber\Site
 	
 	/** This is where you can register custom post types. */
 	public function register_custom_post_types() {
-		//Recipes
-		// register_post_type( 'recipe',
-		// array(
-		// 	'labels' => array(
-		// 		'name' => __( 'Recipe' ),
-		// 		'singular_name' => __( 'Recipe' )
-		// 	),
-		// 	'public' => true,
-		// 	'has_archive' => false,
-		// 	'menu_icon'   => 'dashicons-carrot',
-		// 	'supports'    => array('title', 'editor', 'custom-fields'),
-		// 	)
-		// );
-
-
-		//at the end after register custom post type
-		// register_taxonomy('taxonomy_name','linked_post'), array('other_things_associated_with_the_taxonomy-but_labels_are_must')
-		// register_taxonomy('recipe_type', 'recipe', array('hierarchical' => true, 'label' => __( 'Recipe Category', 'progression' ), 'query_var' => true, 'rewrite' => true));
-		// register_taxonomy('recipe_method', 'recipe', array('hierarchical' => true, 'label' => __( 'Preparation Methods', 'progression' ), 'query_var' => true, 'rewrite' => true));
-		// register_taxonomy('recipe_ingredients', 'recipe', array('hierarchical' => true, 'label' => __( 'Feature Ingredients', 'progression' ), 'query_var' => true, 'rewrite' => true));
-
+		
 	}
 	
 	/** This is where you can register custom taxonomies. */
@@ -178,30 +163,21 @@ class StarterSite extends Timber\Site
 	 */
 	public function scripts_and_styles() {
 		wp_enqueue_style( 'dashicons' );
-		wp_enqueue_script( 'my-script', get_template_directory_uri() . '/static/js/all.min.js', array('jquery'), true );	
-		// wp_enqueue_script( 'slick-script', get_template_directory_uri() . '/slick/slick.min.js', array('jquery'), true );	
-		// wp_enqueue_style( 'slick-css', get_template_directory_uri() . '/slick/slick.css' );
-		// wp_enqueue_style( 'slick-theme-css', get_template_directory_uri() . '/slick/slick-theme.css' );
+		wp_enqueue_script('gsap-js','https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js',array(),false,true);
+		  
+		wp_enqueue_script('gsap-st','https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js',array('gsap-js'),false,true);
+		  
+		wp_enqueue_script('gsap-smoother','https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollSmoother.min.js',array('gsap-js', 'gsap-st'),false,true);
+		  
+		wp_enqueue_script('gsap-split','https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js',array('gsap-js'),false,true);
+		  
+        wp_enqueue_script('my-script',get_template_directory_uri() . '/static/js/all.min.js',array('jquery', 'gsap-js', 'gsap-st', 'gsap-smoother', 'gsap-split'),false,true);
+		  
 		wp_enqueue_style( 'my-style', get_template_directory_uri() . '/static/css/main.css');	
 		if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
 			wp_enqueue_script( 'comment-reply' );
 		}
 	}
-
-	/**
-	 * Register widget area.
-	*/
-	// public function widget_area() {
-	// 	register_sidebar( array(
-	// 		'name'          => esc_html__( 'Sidebar', 'odisi' ),
-	// 		'id'            => 'sidebar-1',
-	// 		'description'   => esc_html__( 'Add widgets here.', 'odisi' ),
-	// 		'before_widget' => '<section id="%1$s" class="widget %2$s">',
-	// 		'after_widget'  => '</section>',
-	// 		'before_title'  => '<h2 class="widget-title">',
-	// 		'after_title'   => '</h2>',
-	// 	) );
-	// }
 
 	// *** login logo ***
 	public function custom_login_logo() {
@@ -294,19 +270,7 @@ class StarterSite extends Timber\Site
 
 	// *** Remove Editor ***
 	public function remove_editor() {
-		// if (isset($_GET['post'])) {
-		// 	$id = $_GET['post'];
-		// 	$template = get_post_meta($id, '_wp_page_template', true);
-		// 	switch ($template) {
-		// 		case 'page-templates/page-home.php':
-
-				remove_post_type_support('page', 'editor');
-		// 		break;
-		// 		default :
-		// 		// Don't remove any other template.
-		// 		break;
-		// 	}
-		// }
+		remove_post_type_support('page', 'editor');
 	}
 
 	/* Use Options Page Globally */
@@ -586,13 +550,12 @@ class StarterSite extends Timber\Site
 	 * Load Favicon
 	 **************************/
 	public function loadFavicon() {
-		echo '<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
-		<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-		<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
-		<link rel="manifest" href="/site.webmanifest">
-		<link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5">
-		<meta name="msapplication-TileColor" content="#ffffff">
-		<meta name="theme-color" content="#ffffff">';
+		echo '<link rel="icon" type="image/png" href="/favicon-96x96.png" sizes="96x96" />
+		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+		<meta name="apple-mobile-web-app-title" content="ODISI" />
+		<link rel="manifest" href="/site.webmanifest" />';
 	}
 
 	/*******************************
@@ -621,21 +584,4 @@ class StarterSite extends Timber\Site
 		} 
 	}
 }
-
-//estimated reading time
-// function reading_time() {
-// 	$content = get_post_field( 'post_content', $post->ID );
-// 	$word_count = str_word_count( strip_tags( $content ) );
-// 	$readingtime = ceil($word_count / 200);
-	
-// 	if ($readingtime == 1) {
-// 	$timer = " minute";
-// 	} else {
-// 	$timer = " minutes";
-// 	}
-// 	$totalreadingtime = $readingtime . $timer;
-	
-// 	return $totalreadingtime;
-// }
-
 new StarterSite();

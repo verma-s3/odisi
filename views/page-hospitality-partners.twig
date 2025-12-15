@@ -1,0 +1,129 @@
+{% import './components/image.twig' as Image %}
+{% import './components/button.twig' as Button %}
+{% extends "base.twig" %}
+
+{% block content %}
+	<section class="{{field.slug}}-page" id="{{field.slug}}-page">
+
+		<div class="partners padding" id="partners">
+			<div class="container">
+				{% set page = field.meta('why_partner') %}
+				<div class="left-content">
+					<div class="text-content">
+						<h2 class="title">{{page.title}}</h2>
+						<div class="read-less-content content">{{page.content}}</div>
+						<div class="read-more-content content">{{page.content_copy}}</div>
+						<div class="btn">
+							<a href="javascript:void(0)" class="read-btn">Read More</a>
+						</div>
+						<div class="image-content image-reveal">
+							<img src="{{Image(page.image).src}}" alt="{{Image(page.image).alt}}" class="img-responsive">
+						</div>
+					</div>
+				</div>
+				<div class="right-content">
+					<h3 class="benefit-title">{{page.benefit_title}}</h3>
+					<div class="bene-list">
+						{% for list in page.list %}
+							<div class="list-item">
+								<div class="heading-content">
+									<div class="logo">
+										{{ function('file_get_contents', Image(list.logo).src) }}
+									</div>
+									<h4 class="list-title">
+										{{list.title}}
+									</h4>
+								</div>
+								<div class="bene-content">{{list.content}}</div>
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="industry-insights padding" id="industry-insights" style="background-image: url({{Image(field.meta('industry_insights').image).src}})">
+			<div class="container">
+				{% set page = field.meta('industry_insights') %}
+				<h2 class="title split padding-lr">{{page.title}}</h2>
+				<div class="content lines">{{page.content}}</div>
+				<div class="list insight-slider padding-tb">
+					{% for list in page.list %}
+						{% set lag = (lag | default(0)) + 0.2 %}
+						<div class="list-item">
+							<div class="logo"></div>
+							<div class="number">{{list.percentage}}%</div>
+							<h3 class="subtitle h4">{{list.insight}}</h3>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+
+		<div class="proof-of-trust padding" id="proof-of-trust">
+			<div class="container">
+				{% set page = field.meta('proof_of_trust') %}
+				<div class="text-content">
+					{% if page.title is not empty %}
+						<h2 class="title">{{page.title}}</h2>
+					{% endif %}
+					{% if page.content is not empty %}
+						<div class="content">{{page.content}}</div>
+					{% endif %}
+					{% if page.list is not empty %}
+						<ul class="btn">
+							{% for list in page.list %}
+								<li class="h4">{{source (directory ~ '/static/images/hospitality-partners/o-list.svg') }}{{list.list_item}}</li>
+							{% endfor %}
+						</ul>
+					{% endif %}
+				</div>
+				<div class="image-reveal-reverse image-content">
+					<img src="{{Image(page.image).src}}" alt="{{Image(page.image).alt}}" class="img-responsive">
+				</div>
+			</div>
+		</div>
+
+		<div class="how-works padding-tb" id="how-works">
+			<div class="container">
+				{% set page = field.meta('how_partnership_works') %}
+				<h2 class=" center title">{{page.title}}</h2>
+				<div class="exp-list padding-top">
+					{% for list in page.list %}
+						{% set count = (count | default(0)) + 1 %}
+						<div class="list-item">
+							<div class="text-content">
+								<div class="numbers">{{count}}.</div>
+								<div class="content-section">
+									<h3 class="list-title">{{list.title}}</h3>
+									<div class="list-content">{{list.content}}</div>
+								</div>
+							</div>
+							<div class="image-content {% if loop.index == 2 %}image-reveal{% else %} image-reveal-reverse {% endif %}">
+								<img src="{{Image(list.image).src}}" alt="{{Image(list.image).alt}}" class="img-responsive">
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+
+		<div class="consultation padding-lr" id="consultation" style="background-image: url({{Image(field.meta('consultation').image).src}})">
+			<div class="container">
+				{% set page = field.meta('consultation') %}
+				<div class="consult">
+					<h2 class="h4">{{page.title}}</h2>
+					<h3 class="title">{{page.subtitle}}</h3>
+					<div class="btn">
+						<a class="custom-arrow-btn" rel="{{page.button.name}}" data-hover="{{page.button.name}}" href="{{page.button.link}}">
+							<span>{{page.button.name}}</span>
+							{{source (directory ~ '/static/images/btn-arrow.svg') }}
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+
+	</section>
+
+{% endblock %}

@@ -1,34 +1,53 @@
-<div id="contact" class="contact">
+<div id="contact" class="contact" style="background-image: url({{Image(options.footer_image).src}})">
+	<div class="grad"></div>
 	<div class="contact-info">
-		<h2>Contact</h2>
-
+		<div class="container">
+			{% if fn('is_page','116') %}
+				{% set foot = field.meta('footer') %}
+				<h2 class="center footerSplit">{{foot.title}}</h2>
+				<h3 class="h4 ">{{foot.content}}</h3>
+			{% else %}
+				<h2 class="center footerSplit">{{options.footer_text}}</h2>
+			{% endif %}
+			<div class="btn">
+				<a class="light-btn cta-btn openModal" data-hover="Contact Us" href="javascript:void(0)">
+					<span>Contact Us</span>
+				</a>
+				{% include "partials/form-modal.twig" %}
+			</div>
+		</div>
 	</div>
 	<div class="details">
-		<div class="logo">
-			<a class="site-logo" href="{{site.url}}" rel="home">
-				<img src="{{site.theme.link}}/static/images/odisi-logo.svg" alt="ODISI Logo" class="img-responsive">
-			</a>
-		</div>
-		<div class="copyright center">
-			<span class="copyright-text">&copy; ODISI
-				{{"now"|date('Y')}}
-			</span>
-			<span>
-				|
-			</span>
-			<span>
-				A Wilderness North Group Company
-			</span>
-			<span>
-				|
-			</span>
-			<span class="site-by">Site by
-				<a href="https://onpoint.ca/" target="_blank" rel="noopener noreferrer" aria-label="link to PSone website">onPoint</a>
-			</span>
-			<span>
-				|
-				<a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer" aria-label="Link to google terms">Google Terms</a>
-			</span>
+		<div class="container">
+			<div class="logo">
+				<a class="site-logo" href="{{site.url}}" rel="home">
+					<img src="{{site.theme.link}}/static/images/odisi-logo.svg" alt="ODISI Logo" class="img-responsive">
+				</a>
+			</div>
+			<div class="copyright center">
+				<span class="copyright-text">&copy; ODISI
+					{{"now"|date('Y')}}
+				</span>
+				<span>
+					|
+				</span>
+				<span>
+					A Wilderness North Group Company
+				</span>
+				<span>
+					|
+				</span>
+				<span class="site-by">Site by
+					<a href="https://onpoint.ca/" target="_blank" rel="noopener noreferrer" aria-label="link to PSone website">onPoint</a>
+				</span>
+				<span>
+					|
+					<a href="https://policies.google.com/technologies/partner-sites" target="_blank" rel="noopener noreferrer" aria-label="Link to google terms">Google Terms</a>
+				</span>
+			</div>
+			<div class="leaf">
+				{{source (directory ~ '/static/images/leaf-left.svg') }}
+			</div>
 		</div>
 	</div>
 </div>

@@ -10,6 +10,7 @@ VARIABLES
 @min1100: ~"screen and (min-width: 1100px)";
 @min1200: ~"screen and (min-width: 1200px)";
 @min1280: ~"screen and (min-width: 1280px)";
+@min1400: ~"screen and (min-width: 1400px)";
 @min1440: ~"screen and (min-width: 1440px)";
 @min1500: ~"screen and (min-width: 1500px)";
 @min1640: ~"screen and (min-width: 1640px)";
@@ -40,6 +41,14 @@ VARIABLES
     /* IE6-9 */
 }
 
+.split,
+.lines,
+.footerSplit,
+.image-reveal {
+    visibility: hidden;
+}
+
+
 :root {
     //spacing
     --space-unit: 16px;
@@ -58,13 +67,14 @@ VARIABLES
     --space-24: calc(1.5 * var(--space-unit)); //24px
     --space-40: calc(2.5 * var(--space-unit)); //40px
     --space-48: calc(3 * var(--space-unit)); //48px
+    --space-56: calc(3.5 * var(--space-unit)); //56px
     --space-80: calc(5 * var(--space-unit)); //80px
     --space-96: calc(6 * var(--space-unit)); //96px
 
     //color-theory
     --pri-100: #5E574D;
     --pri-200: #C29F71;
-    --pri-300: #D2B48C;
+    --pri-300: #d2b48c;
 
     --sec-100: #254925;
     --sec-200: #BAC29C;

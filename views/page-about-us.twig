@@ -1,0 +1,78 @@
+{% import './components/image.twig' as Image %}
+{% import './components/button.twig' as Button %}
+{% extends "base.twig" %}
+
+{% block content %}
+	<section class="{{field.slug}}-page" id="{{field.slug}}-page">
+
+		<div class="padding our-story" id="our-story">
+			{% set page = field.meta('our_story') %}
+			<div class="container">
+				<div class="text-content">
+					<h2 class="title">{{page.title}}</h2>
+					<p class="h4">{{page.subtitle}}</p>
+					<div class="content">{{page.content}}</div>
+				</div>
+				<div class="image-content image-reveal-reverse">
+					<img class="img-responsive" src="{{Image(page.image).src}}" alt="{{Image(page.image).alt}}">
+				</div>
+			</div>
+		</div>
+
+		<div class="our-group padding" id="our-group">
+			{% set page = field.meta('group_includes') %}
+			<div class="container">
+				<h2 class="title split">{{page.title}}</h2>
+				<div class="list padding-top">
+					{% for list in page.list %}
+						<div class="list-item">
+							<div class="logo">
+								{{fn('file_get_contents',Image(list.logo).src)}}
+							</div>
+							<h3 class="h4">{{list.content}}</h3>
+						</div>
+					{% endfor %}
+				</div>
+				<div class="content lines">{{page.content}}</div>
+			</div>
+		</div>
+
+		<div class="padding north-south" id="north-south">
+			{% set page = field.meta('from_north_to_south') %}
+			<div class="container">
+				<div class="text-content">
+					<h2 class="title">{{page.title}}</h2>
+					<p class="h4">{{page.subtitle}}</p>
+					<div class="content">{{page.content}}</div>
+				</div>
+				<div class="image-content image-reveal-reverse">
+					<img class="img-responsive" src="{{Image(page.image).src}}" alt="{{Image(page.image).alt}}">
+				</div>
+			</div>
+		</div>
+
+		<div class="padding-tb our-team" id="our-team">
+			{% set page = field.meta('our_team') %}
+			<div class="team-intro padding ">
+				<div class="container">
+					<div class="pattern">
+						{{source (directory ~ '/static/images/experience/o-pattern.svg') }}
+					</div>
+					<div class="left-content lines">
+						<h2 class="title">{{page.title}}</h2>
+						<h3 class="h4">{{page.subtitle}}</h3>
+					</div>
+					<div class="right-content">
+						<div class="content">{{page.content}}</div>
+					</div>
+				</div>
+			</div>
+
+			<div class="team-wrapper">
+				{% include "partials/team.twig" %}
+			</div>
+		</div>
+
+	</section>
+
+{% endblock %}

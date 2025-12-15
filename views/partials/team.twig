@@ -1,0 +1,51 @@
+{# team Title #}
+{% set team_types = [] %}
+
+{% for list in teams %}
+	{% set type = list.meta('team_type') %}
+	{% if type and type not in team_types %}
+		{% set team_types = team_types|merge([type]) %}
+	{% endif %}
+{% endfor %}
+<article class="team-title padding-top">
+	<div class="container">
+		<ul class="team-list padding-lr">
+			{% for type in team_types %}
+				<li>
+					<a href="javascript:" rel="{{ type }}" class="filter {% if loop.index == 1 %}selected{% endif %}">
+						{{ type }}
+					</a>
+				</li>
+			{% endfor %}
+		</ul>
+	</div>
+</article>
+{# All teams #}
+<article class="spotlight-teams padding-top padding-lr">
+	<div class="container">
+		<div class="teams filter-results">
+			{% for team in teams %}
+				<div class="div-left img-wrapper" data-src="{{team.meta('team_type')}}">
+					<a href="javascript:void(0)" class="team-flex">
+						<div class="image-content">
+							{% if team.profile_pic is not empty %}
+								<img src="{{Image(team.profile_pic).src}}" alt="{{Image(team.profile_pic).alt}}" class="img-responsive"/>
+							{% else %}
+								<img src="{{site.theme.link}}/images/about/avatar.jpg" alt="Placeholder Image" class="img-responsive"/>
+							{% endif %}
+						</div>
+						<div class="team-desp">
+							<h2 class="h3">{{team.title}}</h2>
+							<p class="position">{{team.position}}</p>
+							<div class="btn">
+								<p class="read">Read More</p>
+								{{source (directory ~ '/static/images/arrow_forward.svg') }}
+							</div>
+						</div>
+					</a>
+					{% include "partials/team-modal.twig" %}
+				</div>
+			{% endfor %}
+		</div>
+	</div>
+</article>

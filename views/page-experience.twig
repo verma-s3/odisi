@@ -1,0 +1,92 @@
+{% import './components/image.twig' as Image %}
+{% import './components/button.twig' as Button %}
+{% extends "base.twig" %}
+
+{% block content %}
+	<section class="{{field.slug}}-page" id="{{field.slug}}-page">
+
+		<div class="experience-list padding-tb" id="experience-list">
+			<div class="container">
+				{% set page = field.meta('experience_section') %}
+				<div class="exp-list">
+					{% for list in page.list %}
+						<div class="list-item">
+							<div class="text-content">
+								<h2 class="title">{{list.title}}</h2>
+								<ul class="list-item">
+									{% for item in list.list_item %}
+										<li class="item">{{item.content}}</li>
+									{% endfor %}
+								</ul>
+							</div>
+							<div class="image-content {% if loop.index == 2 %}image-reveal{% else %} image-reveal-reverse {% endif %}">
+								<img src="{{Image(list.image).src}}" alt="{{Image(list.image).alt}}" class="img-responsive">
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+
+
+		<div class="beyond-arrival padding-lr padding-bottom" id="beyond-arrival">
+			<div class="container">
+				{% set page = field.meta('beyond_arrival') %}
+				<div class="arrival-content center">
+					<h2 class="title lines">{{page.title}}</h2>
+					<div class="content lines">{{page.content}}</div>
+				</div>
+				<div class="arrival-list">
+					{% for list in page.list %}
+						{% set lag = (lag | default(0)) + 0.1 %}
+						<div class="list-item" data-lag="{{lag}}">
+							<div class="image-content">
+								<img src="{{Image(list.image).src}}" alt="{{Image(list.image).list}}" class="img-responsive">
+							</div>
+							<div class="text-content center">
+								<h3 class="list-title">{{list.title}}</h3>
+								<div class="content list-content">{{list.content}}</div>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+
+
+		<div class="destinations padding" id="destinations">
+			<div class="container">
+				{% set page = connect %}
+				<h2 class="title split">{{page.title}}</h2>
+				<div class="content lines">{{page.subtitle}}</div>
+				<div class="line"></div>
+				<div class="soon lines">
+					<h3>Map Route Coming Soon</h3>
+				</div>
+			</div>
+		</div>
+		<div class="testimonials padding" id="testimonials">
+			<div class="container padding-tb">
+				{% set page = testimonials %}
+				<div class="heading">
+					<h2 class="title split">{{page.title}}</h2>
+				</div>
+				<div class="test-list testi-slider">
+					{% for list in page.list %}
+						<div class="item-list">
+							<div class="left-side">
+								{{source (directory ~ '/static/images/quotes.svg') }}
+							</div>
+							<div class="right-side">
+								<div class="content">{{list.content}}</div>
+								<p class="name">{{list.name}}</p>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+
+	</section>
+
+{% endblock %}

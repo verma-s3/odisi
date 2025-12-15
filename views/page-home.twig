@@ -1,10 +1,166 @@
 {% import './components/image.twig' as Image %}
 {% import './components/button.twig' as Button %}
-{% extends "base.twig" %} 
+{% extends "base.twig" %}
 
 {% block content %}
-    <section class="{{field.slug}}-page" id="{{field.slug}}-page">
+	<section class="{{field.slug}}-page" id="{{field.slug}}-page">
+		<div class="arrival padding" id="arrival">
+			<div class="container">
+				{% set page = field.meta('arrival') %}
+				<div class="image-reveal image-content">
+					<img src="{{Image(page.image).src}}" alt="{{Image(page.image).alt}}" class="img-responsive">
+				</div>
+				<div class="text-content">
+					{% if page.title is not empty %}
+						<h2 class="title">{{page.title}}</h2>
+					{% endif %}
+					{% if page.content is not empty %}
+						<div class="content">{{page.content}}</div>
+					{% endif %}
+					{% if page.button.name is not empty %}
+						<div class="btn">
+							<a class="green-arrow-btn" rel="{{page.button.name}}" data-hover="{{page.button.name}}" href="{{page.button.link}}">
+								<span>{{page.button.name}}</span>
+								{{source (directory ~ '/static/images/btn-arrow.svg') }}
+							</a>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
 
-    </section>
+		<div class="padding-tb odisi-diff" id="odisi-diff" style="background-image: url({{Image(field.meta('odisi_difference').image).src}})">
+			<div class="container">
+				{% set page = field.meta('odisi_difference') %}
+				<h2 class="title split padding-lr">{{page.title}}</h2>
+				<div class="list list-slider padding-top">
+					{% for list in page.difference_list %}
+						{% set lag = (lag | default(0)) + 0.2 %}
+						<div class="list-item">
+							<div class="logo">
+								{{ function('file_get_contents', Image(list.logo).src) }}
+							</div>
+							<h3 class="subtitle">{{list.title}}</h3>
+							<div class="content">{{list.content}}</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+
+		<div class="partners padding" id="partners">
+			<div class="container">
+				{% set page = field.meta('partners') %}
+				<div class="text-content">
+					{% if page.title is not empty %}
+						<h2 class="title">{{page.title}}</h2>
+					{% endif %}
+					{% if page.content is not empty %}
+						<div class="content">{{page.content}}</div>
+					{% endif %}
+					{% if page.button.name is not empty %}
+						<div class="btn">
+							<a class="green-arrow-btn" rel="{{page.button.name}}" data-hover="{{page.button.name}}" href="{{page.button.link}}">
+								<span>{{page.button.name}}</span>
+								{{source (directory ~ '/static/images/btn-arrow.svg') }}
+							</a>
+						</div>
+					{% endif %}
+				</div>
+				<div class="image-reveal-reverse image-content">
+					<img src="{{Image(page.image).src}}" alt="{{Image(page.image).alt}}" class="img-responsive">
+				</div>
+			</div>
+		</div>
+
+		<div class="guest-journey padding" id="guest-journey">
+			<div class="container">
+				{% set page = field.meta('guest_journey') %}
+				<div class="image-reveal image-content">
+					<img src="{{Image(page.image).src}}" alt="{{Image(page.image).alt}}" class="img-responsive">
+				</div>
+				<div class="text-content">
+					{% if page.title is not empty %}
+						<h2 class="title">{{page.title}}</h2>
+					{% endif %}
+					{% if page.content is not empty %}
+						<div class="content">{{page.content}}</div>
+					{% endif %}
+					{% if page.button.name is not empty %}
+						<div class="btn">
+							<a class="green-arrow-btn" rel="{{page.button.name}}" data-hover="{{page.button.name}}" href="{{page.button.link}}">
+								<span>{{page.button.name}}</span>
+								{{source (directory ~ '/static/images/btn-arrow.svg') }}
+							</a>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+
+		<div class="destinations padding" id="destinations">
+			<div class="container">
+				{% set page = field.meta('connect') %}
+				<h2 class="title split">{{page.title}}</h2>
+				<div class="content lines">{{page.subtitle}}</div>
+				<div class="line"></div>
+				<div class="soon lines">
+					<h3>Map Route Coming Soon</h3>
+				</div>
+			</div>
+		</div>
+
+		<div class="heritage padding" id="heritage">
+			<div class="container">
+				{% set page = field.meta('heritage') %}
+				<div class="image-content">
+					{% for list in page.list %}
+						<div class="{% if loop.index == 2 %}image-reveal-reverse{% else %} image-reveal {% endif %}">
+							<img src="{{Image(list.image).src}}" alt="{{Image(list.image).alt}}" class="img-responsive">
+						</div>
+					{% endfor %}
+				</div>
+				<div class="text-content">
+					{% if page.title is not empty %}
+						<h2 class="title">{{page.title}}</h2>
+					{% endif %}
+					{% if page.content is not empty %}
+						<div class="content">{{page.content}}</div>
+					{% endif %}
+					{% if page.button.name is not empty %}
+						<div class="btn">
+							<a class="light-arrow-btn" rel="{{page.button.name}}" data-hover="{{page.button.name}}" href="{{page.button.link}}">
+								<span>{{page.button.name}}</span>
+								{{source (directory ~ '/static/images/btn-arrow.svg') }}
+							</a>
+						</div>
+					{% endif %}
+				</div>
+			</div>
+		</div>
+
+		<div class="testimonials padding" id="testimonials" style="background-image: url({{Image(field.meta('testimonials').background_image).src}})">
+			<div class="container padding-tb">
+				{% set page = field.meta('testimonials') %}
+				<div class="heading">
+					<h2 class="title split">{{page.title}}</h2>
+				</div>
+				<div class="test-list testi-slider">
+					{% for list in page.list %}
+						<div class="item-list">
+							<div class="left-side">
+								{{source (directory ~ '/static/images/quotes.svg') }}
+							</div>
+							<div class="right-side">
+								<div class="content">{{list.content}}</div>
+								<p class="name">{{list.name}}</p>
+							</div>
+						</div>
+					{% endfor %}
+				</div>
+			</div>
+		</div>
+
+	</section>
 
 {% endblock %}

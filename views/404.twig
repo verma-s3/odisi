@@ -2,14 +2,20 @@
 {% block content %}
 	<div class="error-block">
 		<h1 style="margin-block: 50px;" class="center padding-lr">404</h1>
-		<h3 class="page center padding-lr">Ooops!!! The page you are looking for is not found</h3>
-		<a class="back-home" href="{{site.url}}">Back to home</a>
-		<a class="light-btn" href="{{site.url}}">Back to home</a>
-		<a class="light-arrow-btn" href="{{site.url}}">Back to home
-			{{source (directory ~ '/static/images/btn-arrow.svg') }}
-        </a>
-        <a class="green-arrow-btn" href="{{site.url}}">Back to home
-			{{source (directory ~ '/static/images/btn-arrow.svg') }}
-        </a>
+		<h3 class="page h4 center padding-lr">Ooops!!! The page you are looking for is not found</h3>
+		<a class="back-home" data-hover="Back to home" href="{{site.url}}">
+			<span>Back to home</span>
+		</a>
+		{# <a class="light-btn" data-hover="Back to home" href="{{site.url}}">
+					<span>Back to home</span>
+				</a>
+				<a class="light-arrow-btn" data-hover="Back to home" href="{{site.url}}">
+					<span>Back to home</span>
+					{{source (directory ~ '/static/images/btn-arrow.svg') }}
+				</a>
+				<a class="green-arrow-btn" data-hover="Back to home" href="{{site.url}}">
+					<span>Back to home</span>
+					{{source (directory ~ '/static/images/btn-arrow.svg') }}
+				</a> #}
 	</div>
 {% endblock %}

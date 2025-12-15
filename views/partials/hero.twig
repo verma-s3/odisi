@@ -1,17 +1,43 @@
 {% import './components/image.twig' as Image %}
 
-{% if not fn('is_page',"10") %}
-    <div class="hero">
-        {% if fn('is_page','13') %}
-            {# <img class="img-responsive" src="{{Image(field.meta('hero_banner_image')).src}}" alt="{{Image(field.meta('about_image')).alt}}" /> #}
-        {# {% elseif fn('is_singular','products') %} #}
-            <p></p>
-        {% endif %}
-    </div>
-{% endif %}
 {# if the page is home page #}
-{% if fn('is_page',"10") %}
-    <div class="hero">
-         <img class="img-responsive" src="{{Image(field.meta('hero_banner')).src}}" alt="{{Image(field.meta('hero_banner')).alt}}" />
-    </div>
+	{% if fn('is_page',[7,110,116,113]) %}
+		<div class="hero hero-home"> {% set hero = field.meta('hero_section') %}
+		{% if hero.video.url is not empty and hero.video_copy.url is not empty %}
+			<div class="video-container">
+				<video id="odisi-desktop" muted loop playsinline autoplay poster="{{Image(hero.background_image).src}}" controlslist="nodownload">
+					<source src="{{hero.video.url}}" type="video/webm">
+					<source src="{{hero.video_copy.url}}" type="video/mp4">
+					Your browser does not support the video tag.
+				</video>
+			</div>
+		{% else %}
+			<div class="image-content">
+				<img src="{{Image(hero.background_image).src}}" alt="{{Image(hero.background_image).src}}" class="img-responsive">
+			</div>
+		{% endif %}
+		<div class="text-content padding-lr">
+			{% if hero.logo is not empty %}
+				<div class="logo">
+					{{ function('file_get_contents', Image(hero.logo).src) }}
+				</div>
+			{% endif %}
+			{% if hero.title is not empty %}
+				<h1 class="title">{{hero.title}}</h1>
+			{% endif %}
+			{% if hero.subtitle is not empty %}
+				<h2 class="subtitle">{{hero.subtitle}}</h2>
+			{% endif %}
+			{% if hero.content is not empty %}
+				<div class="content">{{hero.content}}</div>
+			{% endif %}
+			{% if hero.button_name is not empty %}
+				<div class="btn">
+					<a class="custom-btn" data-hover="{{hero.button_name}}" href="{{site.url}}">
+						<span>{{hero.button_name}}</span>
+					</a>
+				</div>
+			{% endif %}
+		</div>
+	</div>
 {% endif %}

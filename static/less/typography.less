@@ -5,64 +5,93 @@
     Usage: .font-size(48,28);
 */
 
-.font-size(@maxsize, @minsize){    
-    font-size: ~"calc(@{minsize}px + ( @{maxsize} - @{minsize} ) * ((100vw - 370px) / (1640 - 370)))";  
-    @media @min1920{
-        font-size: ~"@{maxsize}px";
+.font-size(@maxsize, @minsize) {
+    font-size:~"calc(@{minsize}px + ( @{maxsize} - @{minsize} ) * ((100vw - 370px) / (1640 - 370)))";
+
+    @media @min1920 {
+        font-size:~"@{maxsize}px";
     }
 }
 
 
-.h1,.h2,.h3,.h4,.h5,.h6, h1, h2, h3, h4, h5, h6 {
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
     font-family: var(--font-primary);
     color: var(--ter-300);
-    .font-size(80,42);
+    .font-size(80, 42);
     line-height: var(--heading-line-height);
     font-weight: 400;
 }
 
-.h2, h2 {
-    .font-size(64,32);
+.h2,
+h2 {
+    .font-size(64, 32);
 }
 
 
-.h3, h3 {
-   .font-size(32,24);
+.h3,
+h3 {
+    .font-size(32, 24);
 }
 
-.h4, h4 {
+.h4,
+h4 {
     .font-size(24, 20);
     font-family: var(--font-secondary);
 }
 
-.h5, h5{
+.h5,
+h5 {
     .font-size(20, 16);
     font-family: var(--font-secondary);
     font-weight: 300;
 }
 
-.h6, h6 {
+.h6,
+h6 {
     .font-size(16, 16);
     font-family: var(--font-secondary);
     font-weight: 300;
 }
 
-p,li,a,td,span, legend, label, .wpcf7-response-output {
+p,
+li,
+a,
+td,
+span,
+legend,
+label,
+.wpcf7-response-output,
+div {
     font-family: var(--font-secondary);
     color: var(--pri-100);
     line-height: var(--body-line-height);
     font-weight: 300;
     .font-size(20, 16);
 }
-.italic{
+
+.italic {
     font-style: italic;
 }
 
-a, button, .wp-block-button__link {
+a,
+button,
+.wp-block-button__link {
     transition: .3s;
     text-decoration: none;
+
     &:hover {
-       text-decoration: underline;
+        text-decoration: underline;
     }
 }
 
@@ -72,21 +101,23 @@ a, button, .wp-block-button__link {
 //     transition: all .3s ease-in-out;
 // }
 
-.letter-spacing(@mb, @dk){
-    letter-spacing: ~"@{mb}px";
-    @media @min768{
-        letter-spacing: ~"@{dk}px";
+.letter-spacing(@mb, @dk) {
+    letter-spacing:~"@{mb}px";
+
+    @media @min768 {
+        letter-spacing:~"@{dk}px";
     }
 }
+
 .p-content {
     p:not(:first-child) {
-      margin-top: var(--space-12);
-  
-      @media @min992 {
-        margin-top: var(--space-sm);
-      }
+        margin-top: var(--space-12);
+
+        @media @min992 {
+            margin-top: var(--space-sm);
+        }
     }
-  }
+}
 
 // [data-aos= "fadeIn"]{
 //     opacity: 0;  
