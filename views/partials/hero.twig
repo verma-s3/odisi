@@ -34,7 +34,7 @@
 			{% endif %}
 			{% if hero.button_name is not empty %}
 				<div class="btn">
-					<a class="custom-btn" data-hover="{{hero.button_name}}" href="{% if hero.button_link is not empty %}{{hero.button_link}} {% else %} #contact {% endif %}">
+					<a class="light-btn" href="{% if hero.button_link is not empty %}{{hero.button_link}} {% elseif fn('is_page','113') %} #experience-list {% else %} #contact {% endif %}">
 						<span>{{hero.button_name}}</span>
 					</a>
 				</div>

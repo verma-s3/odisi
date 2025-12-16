@@ -1000,13 +1000,13 @@ video,
                 }
             }
 
-            .slick-list {
-                overflow: unset;
+            // .slick-list {
+            //     overflow: visible;
 
-                @media @min1200 {
-                    overflow: hidden;
-                }
-            }
+            //     @media @min1200 {
+            //         overflow: hidden;
+            //     }
+            // }
 
         }
 
@@ -1435,6 +1435,8 @@ video,
 .experience-page {
 
     .experience-list {
+        scroll-margin-top: 80px;
+
         .container {
             .exp-list {
                 .list-item {
@@ -1874,6 +1876,8 @@ video,
                     h3 {
                         text-transform: uppercase;
                         font-variant: all-small-caps;
+                        min-height: 50px;
+                        height: 100%;
                     }
 
                     .number {
@@ -1963,7 +1967,7 @@ video,
     .consultation {
         background-position: 25%;
         background-repeat: no-repeat;
-        background-attachment: fixed;
+        // background-attachment: fixed;
         background-size: cover;
         position: relative;
         padding-block: 220px 34px;
@@ -2494,15 +2498,13 @@ video,
                                 }
 
                                 .image-content {
-                                    @media @min768 {
-                                        width: 233px;
-                                    }
+                                    flex: 0 0 40%;
 
                                     img {
                                         height: 100%;
                                         object-fit: cover;
                                         object-position: center top;
-                                        max-width: 233px;
+                                        aspect-ratio: 1;
                                     }
                                 }
 
@@ -2576,7 +2578,7 @@ video,
 
             svg {
                 path {
-                    fill: var(--sec-100);
+                    fill: var(--black);
                 }
             }
         }
@@ -2764,7 +2766,7 @@ footer {
                     .cta-btn {
                         opacity: 1;
                         visibility: visible;
-                        transition: opacity .2s ease-out, transform .2s ease-out;
+                        transition: all .2s ease-out;
                         z-index: 10;
                         position: relative;
                     }

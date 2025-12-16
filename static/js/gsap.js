@@ -1,7 +1,6 @@
-// ✅ Register Plugins
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
-// ✅ Initialize Lenis
+// Init Lenis
 const lenis = new Lenis({
   duration: 1.2,
   easing: t => 1 - Math.pow(1 - t, 4),
@@ -9,16 +8,19 @@ const lenis = new Lenis({
   smoothTouch: false
 });
 
-// ✅ Replace RAF
+// Sync Lenis with GSAP
+lenis.on("scroll", ScrollTrigger.update);
+ScrollTrigger.defaults({ scroller: window });
+
+// RAF loop
 function raf(time) {
   lenis.raf(time);
   requestAnimationFrame(raf);
 }
 requestAnimationFrame(raf);
 
-// ✅ Sync Lenis + ScrollTrigger
-lenis.on("scroll", ScrollTrigger.update);
-ScrollTrigger.defaults({ scroller: window });
+// ✅ Global access
+window.lenis = lenis;
 
 // ✅ Smooth scroll for anchor links
 document.querySelectorAll("a[href^='#']").forEach(link => {

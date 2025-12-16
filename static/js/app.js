@@ -227,13 +227,13 @@ jQuery(document).ready(function ($) {
     $('.spotlight-teams .filter-results .team-flex').click(function () {
       $(this).next('.team-overlay').addClass('open');
       $('html').addClass('hidden');
-      lenis.stop();
+      window.lenis?.stop();
     });
 
     $('.close').click(function () {
       $('.team-overlay').removeClass('open');
       $('html').removeClass('hidden');
-      lenis.start();
+      window.lenis?.start();
     });
 
     $(document).on('click', '.team-overlay', function (e) {
@@ -241,12 +241,10 @@ jQuery(document).ready(function ($) {
       if (!modal.is(e.target) && modal.has(e.target).length === 0) {
         $(this).removeClass('open');
         $('html').removeClass('hidden');
-        lenis.start();
+        window.lenis?.start();
       }
     });
   }
-  /******************************************************/
-
   /******************************************************/
 
   const $contactSection = $("#contact");
@@ -260,22 +258,21 @@ jQuery(document).ready(function ($) {
 
   // OPEN form
   $openBtn.on("click", function (e) {
-    e.stopPropagation(); // prevent immediate close
+    e.preventDefault();
+    e.stopPropagation();
     $contactSection.addClass("form-active");
-    $("html").addClass("hidden");
+    // $("html").addClass("hidden");
+    // window.lenis?.stop();
   });
 
   // CLOSE on outside click
   $contactSection.on("click", function (e) {
-
-    // ignore clicks on button or inside modal
     if (
       $(e.target).closest(".form-modal").length ||
       $(e.target).closest(".openModal").length
     ) {
       return;
     }
-
     closeFormOverlay();
   });
 
@@ -296,43 +293,26 @@ jQuery(document).ready(function ($) {
 
   function closeFormOverlay() {
     $contactSection.removeClass("form-active");
-    $("html").removeClass("hidden");
+    // $("html").removeClass("hidden");
+    // window.lenis?.start();
   }
 
 
+  document.querySelector('.light-btn').addEventListener('click', function (e) {
+    const hash = this.getAttribute('href');
 
+    // Only handle if it's an anchor
+    if (hash.startsWith('#')) {
+      const target = document.querySelector(hash);
 
-
-  /******************************************************/
-  // document.addEventListener("DOMContentLoaded", () => {
-  //   const hash = window.location.hash;
-
-  //   if (hash === "#contact") {
-  //     const contact = document.querySelector("#contact");
-  //     if (!contact) return;
-
-  //     const smoother = ScrollSmoother.get();
-
-  //     // Wait a little for smoother to be ready
-  //     setTimeout(() => {
-
-  //       smoother.scrollTo(contact, true, "top top");
-
-
-  //       setTimeout(() => {
-  //         smoother.resize();           // Recalculates height
-  //         ScrollTrigger.refresh();     // Refreshes triggers and layout
-  //       }, 300);
-
-  //       history.replaceState(null, null, window.location.pathname);
-  //     }, 300);
-  //   }
-  // });
-
-
-
+      if (target) {
+        e.preventDefault(); // prevent native jump
+        setTimeout(() => {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 150); // short delay helps after lazy load or animation
+      }
+    }
+  });
 
 
 });
-
-

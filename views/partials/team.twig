@@ -1,22 +1,32 @@
 {# team Title #}
-{% set team_types = [] %}
+{# {% set team_types = [] %}
 
 {% for list in teams %}
 	{% set type = list.meta('team_type') %}
 	{% if type and type not in team_types %}
 		{% set team_types = team_types|merge([type]) %}
 	{% endif %}
-{% endfor %}
+{% endfor %} #}
 <article class="team-title padding-top">
 	<div class="container">
 		<ul class="team-list padding-lr">
-			{% for type in team_types %}
+			{# {% for type in team_types %} #}
 				<li>
-					<a href="javascript:" rel="{{ type }}" class="filter {% if loop.index == 1 %}selected{% endif %}">
-						{{ type }}
+					<a href="javascript:" rel="Management Team" class="filter selected">
+						Management Team
 					</a>
 				</li>
-			{% endfor %}
+				<li>
+					<a href="javascript:" rel="Operations Team" class="filter">
+						Operations Team
+					</a>
+				</li>
+				<li>
+					<a href="javascript:" rel="Business Team" class="filter">
+						Business Team
+					</a>
+				</li>
+			{# {% endfor %} #}
 		</ul>
 	</div>
 </article>

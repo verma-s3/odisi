@@ -1,4 +1,4 @@
-<div id="contact" class="contact" style="background-image: url({{Image(options.footer_image).src}})">
+<div id="contact" data-lenis-prevent class="contact" style="background-image: url({{Image(options.footer_image).src}})">
 	<div class="grad"></div>
 	<div class="contact-info">
 		<div class="container">
@@ -10,7 +10,7 @@
 				<h2 class="center footerSplit">{{options.footer_text}}</h2>
 			{% endif %}
 			<div class="btn">
-				<a class="light-btn cta-btn openModal" data-hover="Contact Us" href="javascript:void(0)">
+				<a class="custom-btn cta-btn openModal" data-hover="Contact Us" href="javascript:void(0)">
 					<span>Contact Us</span>
 				</a>
 				{% include "partials/form-modal.twig" %}
