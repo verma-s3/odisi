@@ -3,19 +3,29 @@
 	<div class="error-block">
 		<h1 style="margin-block: 50px;" class="center padding-lr">404</h1>
 		<h3 class="page h4 center padding-lr">Ooops!!! The page you are looking for is not found</h3>
-		<a class="back-home" data-hover="Back to home" href="{{site.url}}">
+		<a class="back-home" href="{{site.url}}">
 			<span>Back to home</span>
+			{{source (directory ~ '/static/images/btn-arrow.svg') }}
 		</a>
-		{# <a class="light-btn" data-hover="Back to home" href="{{site.url}}">
-					<span>Back to home</span>
-				</a>
-				<a class="light-arrow-btn" data-hover="Back to home" href="{{site.url}}">
-					<span>Back to home</span>
-					{{source (directory ~ '/static/images/btn-arrow.svg') }}
-				</a>
-				<a class="green-arrow-btn" data-hover="Back to home" href="{{site.url}}">
-					<span>Back to home</span>
-					{{source (directory ~ '/static/images/btn-arrow.svg') }}
-				</a> #}
+		<a class="custom-btn" href="{{site.url}}">
+			<span>Custo btn</span>
+			{{source (directory ~ '/static/images/btn-arrow.svg') }}
+		</a>
+		<a class="light-btn" href="{{site.url}}">
+			<span>Light Btn</span>
+			{{source (directory ~ '/static/images/btn-arrow.svg') }}
+		</a>
+		<a class="green-btn" href="{{site.url}}">
+			<span>Green Btn</span>
+			{{source (directory ~ '/static/images/btn-arrow.svg') }}
+		</a>
+		<a class="light-arrow-btn" href="{{site.url}}">
+			<span>Light-arrow0btn</span>
+			{{source (directory ~ '/static/images/btn-arrow.svg') }}
+		</a>
+		<a class="green-arrow-btn" href="{{site.url}}">
+			<span>Greenn Arrow-btn</span>
+			{{source (directory ~ '/static/images/btn-arrow.svg') }}
+		</a>
 	</div>
 {% endblock %}

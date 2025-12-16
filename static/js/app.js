@@ -1,4 +1,4 @@
-import { smoother } from './gsap.js';
+// import { smoother } from './gsap.js';
 
 jQuery(document).ready(function ($) {
   fixedHeaderOnScroll();
@@ -9,9 +9,9 @@ jQuery(document).ready(function ($) {
     $('#overlay').toggleClass('open');
     $('html').toggleClass('hidden');
     if ($(this).hasClass('active')) {
-      smoother.paused(true);
+      // smoother.paused(true);
     } else {
-      smoother.paused(false);
+      // smoother.paused(false);
     }
   });
 
@@ -24,7 +24,6 @@ jQuery(document).ready(function ($) {
   //*** Fixed header ***
   function fixedHeaderOnScroll() {
     const scrollTop = $(window).scrollTop();
-
     if (scrollTop > 10) {
       $('header').addClass('fixed-header');
     } else {
@@ -37,6 +36,7 @@ jQuery(document).ready(function ($) {
   /******************************************************/
   // //*** Smooth Scroll ***
   window.addEventListener('load', function () {
+    fixedHeaderOnScroll();
     const hash = window.location.hash;
     if (hash) {
       const target = document.querySelector(hash);
@@ -224,25 +224,16 @@ jQuery(document).ready(function ($) {
     });
     /******************************************************/
 
-    $('.spotlight-teams .filter-results .team-flex').click(function (e) {
-      e.preventDefault();
-      e.stopPropagation();
-
-      const $overlay = $(this).next('.team-overlay');
-      const scrollTop = smoother.scrollTop(); // get virtual scroll position
-
-      // Set top of modal to current virtual scroll so it appears in viewport
-      $overlay.css('top', scrollTop + 'px').addClass('open');
+    $('.spotlight-teams .filter-results .team-flex').click(function () {
+      $(this).next('.team-overlay').addClass('open');
       $('html').addClass('hidden');
-
-      // Pause scroll
-      smoother.paused(true);
+      lenis.stop();
     });
 
     $('.close').click(function () {
       $('.team-overlay').removeClass('open');
       $('html').removeClass('hidden');
-      smoother.paused(false);
+      lenis.start();
     });
 
     $(document).on('click', '.team-overlay', function (e) {
@@ -250,7 +241,7 @@ jQuery(document).ready(function ($) {
       if (!modal.is(e.target) && modal.has(e.target).length === 0) {
         $(this).removeClass('open');
         $('html').removeClass('hidden');
-        smoother.paused(false);
+        lenis.start();
       }
     });
   }
@@ -313,30 +304,30 @@ jQuery(document).ready(function ($) {
 
 
   /******************************************************/
-  document.addEventListener("DOMContentLoaded", () => {
-    const hash = window.location.hash;
+  // document.addEventListener("DOMContentLoaded", () => {
+  //   const hash = window.location.hash;
 
-    if (hash === "#contact") {
-      const contact = document.querySelector("#contact");
-      if (!contact) return;
+  //   if (hash === "#contact") {
+  //     const contact = document.querySelector("#contact");
+  //     if (!contact) return;
 
-      const smoother = ScrollSmoother.get();
+  //     const smoother = ScrollSmoother.get();
 
-      // Wait a little for smoother to be ready
-      setTimeout(() => {
+  //     // Wait a little for smoother to be ready
+  //     setTimeout(() => {
 
-        smoother.scrollTo(contact, true, "top top");
+  //       smoother.scrollTo(contact, true, "top top");
 
 
-        setTimeout(() => {
-          smoother.resize();           // Recalculates height
-          ScrollTrigger.refresh();     // Refreshes triggers and layout
-        }, 300);
+  //       setTimeout(() => {
+  //         smoother.resize();           // Recalculates height
+  //         ScrollTrigger.refresh();     // Refreshes triggers and layout
+  //       }, 300);
 
-        history.replaceState(null, null, window.location.pathname);
-      }, 300);
-    }
-  });
+  //       history.replaceState(null, null, window.location.pathname);
+  //     }, 300);
+  //   }
+  // });
 
 
 

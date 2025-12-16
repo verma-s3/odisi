@@ -28,40 +28,37 @@
 		</div>
 	</header>
 {% endblock %}
-<div id="smooth-wrapper">
-	<div
-		id="smooth-content">
-
-		{# Include Hero #}
-		{% include 'partials/hero.twig' %}
-
-		<section id="content" role="main" class="content-wrapper">
-			<div class="wrapper{{sidebar_class}}"> {% block content %}{% endblock %}
-				</div>
-			</section>
 
 
-			<div class="overlay padding-lr" id="overlay">
-				<div class="wrapper container">
-					<a
-						class="site-logo" href="{{site.url}}" rel="home" aria-label="{{site.name}}">{# {{source (directory ~ '/images/logo/procast-logo.svg') }} #}
-					</a>
-					<div class="overlay-nav-main">
-						<nav id="site-navigation3" class="overlay-menu" role="navigation">
-							{% include "menu.twig" with{'items':menu.get_items} %}
-						</nav>
-					</div>
-				</div>
+{# Include Hero #}
+{% include 'partials/hero.twig' %}
+
+<section id="content" role="main" class="content-wrapper">
+	<div class="wrapper{{sidebar_class}}"> {% block content %}{% endblock %}
+		</div>
+	</section>
+
+
+	<div class="overlay padding-lr" id="overlay">
+		<div class="wrapper container">
+			<a
+				class="site-logo" href="{{site.url}}" rel="home" aria-label="{{site.name}}">{# {{source (directory ~ '/images/logo/procast-logo.svg') }} #}
+			</a>
+			<div class="overlay-nav-main">
+				<nav id="site-navigation3" class="overlay-menu" role="navigation">
+					{% include "menu.twig" with{'items':menu.get_items} %}
+				</nav>
 			</div>
-
-			{% block footer %}
-				<footer id="footer">
-					{% include 'partials/footer.twig' %}
-				</footer>
-				{{ function('wp_footer')}}
-			{% endblock %}
-			<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
 		</div>
 	</div>
+
+	{% block footer %}
+		<footer id="footer">
+			{% include 'partials/footer.twig' %}
+		</footer>
+		{{ function('wp_footer')}}
+	{% endblock %}
+	<script type="text/javascript" src="//cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
 
 </body></html>

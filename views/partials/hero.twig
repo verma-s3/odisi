@@ -1,8 +1,9 @@
 {% import './components/image.twig' as Image %}
 
 {# if the page is home page #}
-	{% if fn('is_page',[7,110,116,113]) %}
-		<div class="hero hero-home"> {% set hero = field.meta('hero_section') %}
+{% if fn('is_page',[7,110,116,113]) %}
+	<div class="hero hero-home">
+		{% set hero = field.meta('hero_section') %}
 		{% if hero.video.url is not empty and hero.video_copy.url is not empty %}
 			<div class="video-container">
 				<video id="odisi-desktop" muted loop playsinline autoplay poster="{{Image(hero.background_image).src}}" controlslist="nodownload">
@@ -33,7 +34,7 @@
 			{% endif %}
 			{% if hero.button_name is not empty %}
 				<div class="btn">
-					<a class="custom-btn" data-hover="{{hero.button_name}}" href="{{site.url}}">
+					<a class="custom-btn" data-hover="{{hero.button_name}}" href="{% if hero.button_link is not empty %}{{hero.button_link}} {% else %} #contact {% endif %}">
 						<span>{{hero.button_name}}</span>
 					</a>
 				</div>

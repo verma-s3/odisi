@@ -163,21 +163,28 @@ class StarterSite extends Timber\Site
 	 */
 	public function scripts_and_styles() {
 		wp_enqueue_style( 'dashicons' );
-		wp_enqueue_script('gsap-js','https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js',array(),false,true);
-		  
-		wp_enqueue_script('gsap-st','https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js',array('gsap-js'),false,true);
-		  
-		wp_enqueue_script('gsap-smoother','https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollSmoother.min.js',array('gsap-js', 'gsap-st'),false,true);
-		  
-		wp_enqueue_script('gsap-split','https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js',array('gsap-js'),false,true);
-		  
-        wp_enqueue_script('my-script',get_template_directory_uri() . '/static/js/all.min.js',array('jquery', 'gsap-js', 'gsap-st', 'gsap-smoother', 'gsap-split'),false,true);
-		  
-		wp_enqueue_style( 'my-style', get_template_directory_uri() . '/static/css/main.css');	
-		if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {
-			wp_enqueue_script( 'comment-reply' );
+	
+		// GSAP core + plugins
+		wp_enqueue_script('gsap-js', 'https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js', array(), null, true);
+		wp_enqueue_script('gsap-st', 'https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollTrigger.min.js', array('gsap-js'), null, true);
+		wp_enqueue_script('gsap-smoother', 'https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/ScrollSmoother.min.js', array('gsap-js', 'gsap-st'), null, true);
+		wp_enqueue_script('gsap-split', 'https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/SplitText.min.js', array('gsap-js'), null, true);
+	
+		// ✅ Add Lenis
+		wp_enqueue_script('lenis', 'https://unpkg.com/lenis@1.3.16/dist/lenis.min.js', array(), null, true);
+	
+		// Your custom JS (depends on jQuery + GSAP)
+		wp_enqueue_script('my-script', get_template_directory_uri() . '/static/js/all.min.js', array('jquery', 'gsap-js', 'gsap-st', 'gsap-smoother', 'gsap-split', 'lenis'), null, true);
+	
+		// CSS
+		wp_enqueue_style('my-style', get_template_directory_uri() . '/static/css/main.css');
+	
+		// WP comments
+		if ( is_singular() && comments_open() && get_option('thread_comments') ) {
+			wp_enqueue_script('comment-reply');
 		}
 	}
+	
 
 	// *** login logo ***
 	public function custom_login_logo() {
