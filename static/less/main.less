@@ -488,121 +488,104 @@ div {
 
 
 .custom-btn {
-    background-color: var(--ter-300);
+    background-color: var(--pri-300);
     padding: 11px 24px;
     text-decoration: none !important;
-    display: inline-block;
     border-radius: 50px;
     transition: all .35s ease;
     position: relative;
     z-index: 1;
     line-height: normal;
+    display: inline-block;
 
     span {
         font-weight: 500;
         font-family: var(--font-secondary);
         font-size: 16px;
-        color: var(--pri-100);
+        color: var(--white);
         line-height: normal;
     }
 
     &:hover {
-        opacity: 1;
-
+        padding-inline: 46px;
 
         span {
-            transform: translateX(-100%);
+            font-weight: 600;
         }
     }
 }
 
 .light-btn {
     .custom-btn ();
-    background-color: var(--pri-300);
-
-    span {
-        color: var(--white);
-    }
-
-    &:hover {
-        // background-color: var(--pri-100);
-
-        &::after {
-            color: var(--white);
-            background-color: var(--pri-100);
-        }
-    }
-}
-
-.green-btn {}
-
-.custom-arrow-btn {
-    .light-arrow-btn();
     background-color: var(--ter-300);
 
     span {
         color: var(--pri-100);
     }
-
-    svg {
-        transition: all .35s ease;
-
-        path {
-            transition: all .35s ease;
-            fill: var(--pri-100);
-        }
-    }
-
-    &:hover {
-        // background-color: var(--sec-100);
-
-        &::after {
-            color: var(--ter-300);
-            background-color: var(--pri-100);
-        }
-
-        // svg {
-        //     path {
-        //         fill: var(--sec-300);
-        //     }
-        // }
-    }
 }
 
-.light-arrow-btn {
-    .light-btn();
-    .display-flex(inline-flex, var(--space-40), row, center);
-}
-
-.green-arrow-btn {
-    .light-arrow-btn();
+.green-btn {
+    .custom-btn ();
     background-color: var(--sec-300);
 
     span {
         color: var(--sec-100);
     }
+}
+
+.arrow-btn {
+    display: inline-flex;
+    gap: var(--space-40);
+    flex-direction: row;
+    align-items: center;
+
+    span {
+        font-weight: 500 !important;
+    }
 
     svg {
-        transition: all .35s ease;
-
-        path {
-            transition: all .35s ease;
-            fill: var(--sec-100);
-        }
+        transform: rotate(0);
+        transition: transform .35s ease;
     }
 
     &:hover {
-        // background-color: var(--sec-100);
-
-        &::after {
-            color: var(--sec-300);
-            background-color: var(--sec-100);
-        }
+        gap: var(--space-40);
 
         svg {
-            path {
-                fill: var(--sec-300);
-            }
+            transform: rotate(45deg);
+        }
+    }
+}
+
+.custom-arrow-btn {
+    .custom-btn();
+    .arrow-btn();
+
+    svg {
+        path {
+            fill: var(--white);
+        }
+    }
+}
+
+.light-arrow-btn {
+    .light-btn();
+    .arrow-btn();
+
+    svg {
+        path {
+            fill: var(--pri-100);
+        }
+    }
+}
+
+.green-arrow-btn {
+    .green-btn();
+    .arrow-btn();
+
+    svg {
+        path {
+            fill: var(--sec-100);
         }
     }
 }
