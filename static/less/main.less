@@ -1965,7 +1965,8 @@ video,
     }
 
     .consultation {
-        background-position: 25%;
+        background-position-x: 25%;
+        background-position-y: top;
         background-repeat: no-repeat;
         // background-attachment: fixed;
         background-size: cover;
@@ -2474,13 +2475,21 @@ video,
                                 border-radius: 20px;
                                 background: var(--white);
                                 box-shadow: 1px 1px 10.8px 0 rgba(101, 112, 172, 0.25);
-                                // width: 100%;
+                                min-height: 208px;
 
                                 .team-desp {
                                     .display-flex(flex, var(--space-sm), column, stretch);
 
                                     .h3 {
                                         color: var(--sec-100);
+                                    }
+
+                                    .position {
+                                        min-height: 60px;
+
+                                        @media @min992 {
+                                            min-height: 80px;
+                                        }
                                     }
 
                                     .btn {
@@ -2505,6 +2514,10 @@ video,
                                         object-fit: cover;
                                         object-position: center top;
                                         aspect-ratio: 1;
+
+                                        @media @max768 {
+                                            aspect-ratio: 3/4;
+                                        }
                                     }
                                 }
 
@@ -2833,7 +2846,7 @@ footer {
                                     }
                                 }
 
-                                button.light-btn {
+                                button.custom-btn {
                                     border: none;
                                     display: block;
                                     width: 100%;

@@ -112,7 +112,7 @@ class StarterSite extends Timber\Site
 		$label = esc_html($fragment->get_attribute('value'));
 	
 		return sprintf(
-			'<button class="light-btn" data-hover="%s" %s><span>%s</span></button>',
+			'<button class="custom-btn" data-hover="%s" %s><span>%s</span></button>',
 			$label,
 			implode(' ', $new_attributes),
 			$label
